@@ -48,7 +48,13 @@ Orang.sync({force: true}).then(() => {
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
 // routing
+// hello world
 app.get('/', (req, res) => res.send('Hello World!'));
+// get all
 app.get('/orangs', (req, res) => {
   Orang.findAll().then(orangs => res.json(orangs))
+})
+// get one
+app.get('/orangs/:id', (req, res) => {
+  Orang.findById(req.params.id).then(orang => res.json(orang))
 })
