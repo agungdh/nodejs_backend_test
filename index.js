@@ -3,6 +3,10 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
+// deklarasi bodyParser
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: true }));
+
 // deklarasi sequelize
 const Sequelize = require('sequelize');
 // const sequelize = new Sequelize('mysql://root:@localhost:3306/orang'); // mysql
@@ -52,9 +56,18 @@ app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 app.get('/', (req, res) => res.send('Hello World!'));
 // get all
 app.get('/orangs', (req, res) => {
-  Orang.findAll().then(orangs => res.json(orangs))
+  Orang.findAll().then(orangs => res.json(orangs));
 })
 // get one
 app.get('/orangs/:id', (req, res) => {
-  Orang.findById(req.params.id).then(orang => res.json(orang))
+  Orang.findByPk(req.params.id).then(orang => res.json(orang));
+})
+app.post('/orangs', (req, res) => {
+  Orang.create({
+    nama: req.body.nama,
+    alamat: req.body.alamat,
+    umur: req.body.umur,
+  }).then(orang => {
+    res.json(orang);
+  })
 })
