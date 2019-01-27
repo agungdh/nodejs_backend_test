@@ -62,6 +62,7 @@ app.get('/orangs', (req, res) => {
 app.get('/orangs/:id', (req, res) => {
   Orang.findByPk(req.params.id).then(orang => res.json(orang));
 })
+// create
 app.post('/orangs', (req, res) => {
   Orang.create({
     nama: req.body.nama,
@@ -69,5 +70,19 @@ app.post('/orangs', (req, res) => {
     umur: req.body.umur,
   }).then(orang => {
     res.json(orang);
+  })
+})
+// update
+app.put('/orangs/:id', (req, res) => {
+  Orang.update({
+    nama: req.body.nama,
+    alamat: req.body.alamat,
+    umur: req.body.umur,
+  }, {
+    where: {
+      id: req.params.id
+    }
+  }).then(() => {
+    Orang.findByPk(req.params.id).then(orang => res.json(orang));
   })
 })
