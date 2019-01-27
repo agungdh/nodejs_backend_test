@@ -86,3 +86,13 @@ app.put('/orangs/:id', (req, res) => {
     Orang.findByPk(req.params.id).then(orang => res.json(orang));
   })
 })
+// delete
+app.delete('/orangs/:id', (req, res) => {
+  Orang.destroy({
+    where: {
+      id: req.params.id
+    }
+  }).then(() => {
+    Orang.findByPk(req.params.id).then(orang => res.json(orang));
+  })
+})
