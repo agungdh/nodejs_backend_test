@@ -12,6 +12,7 @@ const port = 3000;
 // deklarasi bodyParser
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 // deklarasi sequelize
 const Sequelize = require('sequelize');
